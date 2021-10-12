@@ -62,14 +62,35 @@ const startTracker = () => {
 
 function displayAll() {
 db.findAll()
+.then(([rows]) => {
+    let data = rows;
+    console.log('\n ');
+    console.table(data);
+    console.log('\n ');
+    startTracker();
+})
 }
 
 function displayDepartment() {
-
+    db.findDept()
+    .then(([rows]) => {
+        let data = rows;
+        console.log('\n ');
+        console.table(data);
+        console.log('\n ');
+        startTracker();
+    })
 }
 
 function displayAllRoles() {
-
+    db.findRole()
+    .then(([rows]) => {
+        let data = rows;
+        console.log('\n ');
+        console.table(data);
+        console.log('\n ');
+        startTracker();
+    })
 }
 
 async function updateRole() {
@@ -93,3 +114,5 @@ function endTracker() {
     connection.end();
     console.log('Thanks for using Employee Tracker!');
 }
+
+startTracker();
