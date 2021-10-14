@@ -49,7 +49,7 @@ class DB {
         return this.connection
         .promise()
         .query(
-            `UPDATE employees SET role_id ?
+            `UPDATE employees SET role_id = ?
             WHERE id = ?`, [roleId, employeeId]
         )
     }

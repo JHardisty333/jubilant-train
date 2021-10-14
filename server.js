@@ -13,9 +13,9 @@ const startTracker = () => {
             'View All Departments',
             'View All Roles',
             'Update Role',
-            'Add A Department',
-            'Add a New Employee',
-            'Delete Employee',
+            // 'Add A Department',
+            // 'Add a New Employee',
+            // 'Delete Employee',
             'Exit'
         ]
     })
@@ -37,17 +37,17 @@ const startTracker = () => {
                     updateRole();
                     break;
 
-                case 'Add A Department':
-                    addDept();
-                    break;
+                // case 'Add A Department':
+                //     addDept();
+                //     break;
 
-                case 'Add a New Employee':
-                    addNewEmp();
-                    break;
+                // case 'Add a New Employee':
+                //     addNewEmp();
+                //     break;
 
-                case 'Delete Employee':
-                    deleteEmp();
-                    break;
+                // case 'Delete Employee':
+                //     deleteEmp();
+                //     break;
 
                 case 'Exit':
                     endTracker();
@@ -94,20 +94,49 @@ function displayAllRoles() {
 }
 
 async function updateRole() {
+    db.findAll().then(allEployees => {
+        return allEployees
+    })
+    .then(employees => {
+        db.findRole().then(allRoles => {
+            return {employees, allRoles}
+        }).then(employeeData => {
+            console.log(employeeData.allRoles [0][0])
+            // console.log(employeeData.employees [0])
+            inquirer.prompt([{
+                type: 'list',
+                name: 'id',
+                message: 'Which employee?',
+                choices: employeeData.employees[0].map(employee => ({name: employee.first_name, value: employee.id}))
+            },
+            {
+                type: 'list',
+                name: 'role_id',
+                message: 'Employee id?',
+                choices: employeeData.allRoles[0].map(role => ({name: role.Role, value: role.Id}))
+            }]).then(updateRole => {
+                // console.log(updateRole)
+                return db.updateRole(updateRole.role_id, updateRole.id)
+            }).then(response => {
+                // console.log('done')
+                startTracker();
+            })
+        })
+    })
 
 }
 
-function addDept() {
+// function addDept() {
 
-}
+// }
 
-function addNewEmp() {
+// function addNewEmp() {
 
-}
+// }
 
-function deleteEmp() {
+// function deleteEmp() {
 
-}
+// }
 
 
 function endTracker() {
