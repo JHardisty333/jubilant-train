@@ -16,9 +16,6 @@ The following animation demonstrates the application functionality:
 <img width="500" alt="12-sql-homework-demo-01" src="https://user-images.githubusercontent.com/82549162/137573778-acc5d1fb-30d3-4180-8551-17ac2355d1e2.gif">
 
 ### Video Walkthrough
-The following video demonstrates the functionality and process of the application:
-
-
 
 ---
 
