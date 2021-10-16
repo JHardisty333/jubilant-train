@@ -143,6 +143,7 @@ function addDept(){
         function(error, data){
             if (error) throw error
             console.table(data)
+            
             menu()
         })
     })
@@ -181,7 +182,7 @@ function addRole(){
 
 
 function addNewEmp() {
-    let name = inquirer.prompt([{
+    let newEmployee = inquirer.prompt([{
         name: 'first_name',
         type: 'input',
         message: 'What is the Employees first name'
