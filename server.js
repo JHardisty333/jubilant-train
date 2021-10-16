@@ -37,8 +37,12 @@ const startTracker = () => {
                     updateRole();
                     break;
 
-                case 'Add A Department':
+                case 'Add A New Department':
                     addDept();
+                    break;
+                    
+                case 'Add A New Role':
+                    addRole();
                     break;
 
                 case 'Add a New Employee':
@@ -126,18 +130,55 @@ async function updateRole() {
 
 }
 
-function addDept() {
-    let newDept = inquirer.prompt([{
-        name: 'name',
+function addDept(){
+    inquirer.prompt([{
         type: 'input',
+        name: 'name',
         message: 'What is the name of the new department?'
     }])
-        .then(answer => {
-            db.newDept(answer)
-            startTracker();
-
+    .then(function(answer){
+        // console.log(answer);
+        db.query('INSERT INTO department SET ?',
+        { name: answer.name },
+        function(error, data){
+            if (error) throw error
+            console.table(data)
+            menu()
         })
-}
+    })
+};
+
+function addRole(){
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'title',
+            message: 'What is the title of your new role?'
+        },
+        {
+            type: 'input',
+            name: 'salary',
+            message: 'What is the salary?'
+        },
+        {
+            type: 'input',
+            name: 'department_id',
+            message: 'What is the departments id?'
+        }
+    ]).then(function(answers){
+        console.log(answers);
+        db.query('INSERT INTO role SET ?',{
+            title: answers.title,
+            salary: answers.salary,
+            department_id: answers.department_id
+        },function(err, data) {
+            if (err) throw err
+            console.table(data)
+            menu()            
+        })
+    })
+};
+
 
 function addNewEmp() {
     let name = inquirer.prompt([{
