@@ -136,14 +136,8 @@ function addNewDept() {
         name: 'name',
         type: 'input',
         message: 'What is the name of the new department?'
-    },
-    {
-        name: 'department_id',
-        type: 'input',
-        message: 'What is the departments id?'
-    }
-    ]).then(answer => {
-        const newDept = [answer.name, answer.department_id];
+    }]).then(answer => {
+        const newDept = [answer.name];
         console.log(newDept);
         db.addDept(newDept);
         startTracker();
@@ -180,12 +174,12 @@ function addNewEmp() {
     let newEmployee = inquirer.prompt([{
         name: 'first_name',
         type: 'input',
-        message: 'What is the Employees first name'
+        message: 'What is the Employees first name?'
     },
     {
         name: 'last_name',
         type: 'input',
-        message: 'What is the employees last name'
+        message: 'What is the employees last name?'
     },
     {
         name: 'role',
@@ -196,9 +190,7 @@ function addNewEmp() {
         name: 'manager',
         type: 'input',
         message: 'What is the manager id?'
-    }
-
-    ]).then(answer => {
+    }]).then(answer => {
         const newEmployee = [answer.first_name, answer.last_name, answer.role, answer.manager];
         console.log(newEmployee);
         db.addEmployee(newEmployee);

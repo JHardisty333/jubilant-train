@@ -35,22 +35,31 @@ class DB {
             LEFT JOIN department ON role.department_id = department.id;`
         )
     }
-
-    addDept(newDepartment) {
-        console.log(newDepartment)
-        return this.connection
-        .promise()
-        .query(
-            `INSERT INTO department SET ?`, newDepartment
-        )
-    }
-
+    
     updateRole(roleId, employeeId) {
         return this.connection
         .promise()
         .query(
             `UPDATE employees SET role_id = ?
             WHERE id = ?`, [roleId, employeeId]
+        )
+    }
+
+    addDept(newDept) {
+        return this.connection
+        .promise()
+        .query(
+            `INSERT INTO department (department_name)
+            VALUES (?)`, newDept
+        )
+    }
+
+    addRole(newRole) {
+        return this.connection
+        .promise()
+        .query(
+            `INSERT INTO role (title, salary, department_id)
+            VALUES (?,?,?)`, newRole
         )
     }
 
@@ -63,15 +72,15 @@ class DB {
         )
     }
 
-    deleteEmployee(deletedEmployee) {
-        console.log(deletedEmployee)
-        return this.connection
-        .promise()
-        .query(
-            `DELETE FROM employees
-            WHERE id = ?`, deletedEmployee
-        )
-    }
+    // deleteEmployee(deletedEmployee) {
+    //     console.log(deletedEmployee)
+    //     return this.connection
+    //     .promise()
+    //     .query(
+    //         `DELETE FROM employees
+    //         WHERE id = ?`, deletedEmployee
+    //     )
+    // }
 }
 
 
