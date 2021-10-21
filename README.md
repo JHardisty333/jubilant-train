@@ -11,11 +11,14 @@ Developers frequently have to create interfaces that make it easy for non-develo
 # Demo
 
 ### Mock Up
-The following animation demonstrates the application functionality:
+The following animation demonstrates a summary of the application:
 
 <img width="500" alt="12-sql-homework-demo-01" src="https://user-images.githubusercontent.com/82549162/137573778-acc5d1fb-30d3-4180-8551-17ac2355d1e2.gif">
 
 ### Video Walkthrough
+The following video demonstrates the full break down of the application's functionality:
+
+https://user-images.githubusercontent.com/82549162/138207260-53526da3-7a99-4a2e-b995-00241572ab66.mp4
 
 ---
 
