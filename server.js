@@ -13,9 +13,10 @@ const startTracker = () => {
             'View All Departments',
             'View All Roles',
             'Update Role',
-            'Add A Department',
+            'Add A New Department',
+            'Add A New Role',
             'Add a New Employee',
-            'Delete Employee',
+            // 'Delete Employee',
             'Exit'
         ]
     })
@@ -38,20 +39,20 @@ const startTracker = () => {
                     break;
 
                 case 'Add A New Department':
-                    addDept();
+                    addNewDept();
                     break;
-                    
+
                 case 'Add A New Role':
-                    addRole();
+                    addNewRole();
                     break;
 
                 case 'Add a New Employee':
                     addNewEmp();
                     break;
 
-                case 'Delete Employee':
-                    deleteEmp();
-                    break;
+                // case 'Delete Employee':
+                //     deleteEmp();
+                //     break;
 
                 case 'Exit':
                     endTracker();
@@ -130,55 +131,49 @@ async function updateRole() {
 
 }
 
-function addDept(){
-    inquirer.prompt([{
-        type: 'input',
+function addNewDept() {
+    let newDept = inquirer.prompt([{
         name: 'name',
+        type: 'input',
         message: 'What is the name of the new department?'
-    }])
-    .then(function(answer){
-        // console.log(answer);
-        db.query('INSERT INTO department SET ?',
-        { name: answer.name },
-        function(error, data){
-            if (error) throw error
-            console.table(data)
-            
-            menu()
-        })
+    },
+    {
+        name: 'department_id',
+        type: 'input',
+        message: 'What is the departments id?'
+    }
+    ]).then(answer => {
+        const newDept = [answer.name, answer.department_id];
+        console.log(newDept);
+        db.addDept(newDept);
+        startTracker();
     })
 };
 
-function addRole(){
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'title',
-            message: 'What is the title of your new role?'
-        },
-        {
-            type: 'input',
-            name: 'salary',
-            message: 'What is the salary?'
-        },
-        {
-            type: 'input',
-            name: 'department_id',
-            message: 'What is the departments id?'
-        }
-    ]).then(function(answers){
-        console.log(answers);
-        db.query('INSERT INTO role SET ?',{
-            title: answers.title,
-            salary: answers.salary,
-            department_id: answers.department_id
-        },function(err, data) {
-            if (err) throw err
-            console.table(data)
-            menu()            
-        })
+function addNewRole() {
+    let newRole = inquirer.prompt([{
+        name: 'title',
+        type: 'input',
+        message: 'What is the title of your new role?'
+    },
+    {
+        name: 'salary',
+        type: 'input',
+        message: 'What is the salary?'
+    },
+    {
+        name: 'department_id',
+        type: 'input',
+        message: 'What is the department id?'
+    }
+
+    ]).then(answer => {
+        const newRole = [answer.title, answer.salary, answer.department_id];
+        console.log(newRole);
+        db.addRole(newRole);
+        startTracker();
     })
-};
+}
 
 
 function addNewEmp() {
@@ -200,31 +195,30 @@ function addNewEmp() {
     {
         name: 'manager',
         type: 'input',
-        message: 'What is the manager?'
+        message: 'What is the manager id?'
     }
 
-    ])
-        .then(answer => {
-            const newEmployee = [answer.first_name, answer.last_name, answer.role, answer.manager];
-            console.log(newEmployee);
-            db.addEmployee(newEmployee);
-            startTracker();
-        })
-}
-
-function deleteEmp() {
-    inquirer.prompt({
-        name: 'id',
-        type: 'input',
-        message: 'What is the ID of the emplyee you wish to remove?',
-    })
-    .then(answer => {
-        console.log(answer);
-        db.delete(answer);
-        console.log('Employee Removed!');
+    ]).then(answer => {
+        const newEmployee = [answer.first_name, answer.last_name, answer.role, answer.manager];
+        console.log(newEmployee);
+        db.addEmployee(newEmployee);
         startTracker();
     })
 }
+
+// function deleteEmp() {
+//     inquirer.prompt({
+//         name: 'id',
+//         type: 'input',
+//         message: 'What is the ID of the emplyee you wish to remove?',
+//     })
+//     .then(answer => {
+//         console.log(answer);
+//         db.delete(answer);
+//         console.log('Employee Removed!');
+//         startTracker();
+//     })
+// }
 
 
 function endTracker() {
